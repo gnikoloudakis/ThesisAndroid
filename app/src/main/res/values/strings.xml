@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyCellID</string>
+
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="clear">Clear</string>
+    <string name="send">Send</string>
+
+    <string name="cid">CID:</string>
+    <string name="mcc">MCC:</string>
+    <string name="mnc">MNC:</string>
+    <string name="lac">LAC:</string>
+    <string name="signalstrength">SignalStrength:</string>
+
+    <string name="vcid">vcid</string>
+    <string name="vmcc">vmcc</string>
+    <string name="vmnc">vmnc</string>
+    <string name="vlac">vlac</string>
+    <string name="vss">vss</string>
+
+
+
+
+</resources>
