@@ -1,21 +1,32 @@
 package com.yannis.mycellid;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.CellInfo;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +46,7 @@ import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.List;
+import java.util.jar.Manifest;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -44,19 +56,22 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private TelephonyManager mTelephonyManager;
     private CustomPhoneStateListener mCustomPhoneStateListener;
     private TextView mCallStateView, cid, lac, mcc, mnc, ss;
+    private EditText user, service;
     private Button startbtn, stopbtn, clearbtn, sendbtn;
     private JSONObject UserData = new JSONObject();
     private String networkOperator;
+    private Spinner availableWifis;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getLocationPermissions();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -65,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
         mCustomPhoneStateListener = new CustomPhoneStateListener(this);
         networkOperator = mTelephonyManager.getNetworkOperator();
 
-        List<NeighboringCellInfo> cellInfos = (List< NeighboringCellInfo>) this.mTelephonyManager.getNeighboringCellInfo();
+        List<NeighboringCellInfo> cellInfos = (List<NeighboringCellInfo>) this.mTelephonyManager.getNeighboringCellInfo();
         System.out.println("this is the data" + cellInfos.toString());
 
         mCallStateView = (TextView) findViewById(R.id.CallStateTextView);
@@ -78,6 +93,10 @@ public class MainActivity extends ActionBarActivity {
         mcc = (TextView) findViewById(R.id.vmcc);
         mnc = (TextView) findViewById(R.id.vmnc);
         ss = (TextView) findViewById(R.id.vss);
+        user = (EditText) findViewById(R.id.user);
+        service = (EditText) findViewById(R.id.service);
+        availableWifis = (Spinner) findViewById(R.id.spinner);
+
         if (!TextUtils.isEmpty(networkOperator)) {
             setMcc(Integer.parseInt(networkOperator.substring(0, 3)));
             setMnc(Integer.parseInt(networkOperator.substring(3)));
@@ -120,13 +139,13 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    final String url = "http://10.0.3.96:8081/service/positioning";
+                    final String url = service.getText() + "/service/positioning";
                     UserData = createJsonData(Integer.parseInt((String) cid.getText()),
                             Integer.parseInt((String) lac.getText()),
                             Integer.parseInt((String) mcc.getText()),
                             Integer.parseInt((String) mnc.getText()),
                             Integer.parseInt((String) ss.getText()),
-                            "giannis.nikoloudakis@gmail.com", -96);
+                            user.getText(), -96);
 //                    new PostData().execute()
                     makeRequest(url, UserData.toString());
                 } catch (Exception e) {
@@ -136,8 +155,10 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    public JSONObject createJsonData(int cid, int lac, int mcc, int mnc, int ss, String user, int rssi) {
+    public JSONObject createJsonData(int cid, int lac, int mcc, int mnc, int ss, Editable user, int rssi) {
         JSONObject allJsonData = new JSONObject();
+        Long tslong = System.currentTimeMillis();
+        String ts = tslong.toString();
         try {
             JSONObject userJsonData = new JSONObject();
             JSONObject cellular = new JSONObject();
@@ -152,6 +173,7 @@ public class MainActivity extends ActionBarActivity {
 
             cellTowers.put("cellTowers", cellinfo);
 
+            userJsonData.put("time_stamp", ts);
             userJsonData.put("user", user);
             userJsonData.put("RSSI", rssi);
             userJsonData.put("cellular", cellTowers);
@@ -333,4 +355,42 @@ public class MainActivity extends ActionBarActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+
+    private static final int LOCATION_PERMISSIONS_REQUEST = 123;
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void getLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+            }
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSIONS_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
+        if (requestCode == LOCATION_PERMISSIONS_REQUEST){
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "Location Permissin Granted", Toast.LENGTH_SHORT).show();
+            }else {
+//                boolean showRationale = shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+
+//                if (showRationale){
+//
+//                }
+//                else {
+//                    Toast.makeText(this, "Location Permission Dennied", Toast.LENGTH_SHORT).show();
+//                }
+            }
+        }else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }
+
+
+
+

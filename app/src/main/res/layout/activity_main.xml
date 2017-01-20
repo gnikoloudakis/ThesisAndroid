@@ -11,52 +11,154 @@
     tools:context="com.yannis.mycellid.MainActivity">
 
     <Button
+        android:text="@string/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:text="@string/start" />
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/start"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/start"
-        android:layout_toRightOf="@+id/start"
-        android:text="@string/stop" />
-
-    <Button
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/send"
-        android:layout_below="@+id/stop"
-        android:layout_alignLeft="@+id/stop"
-        android:layout_alignStart="@+id/stop" />
-
-    <Button
-        android:id="@+id/clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:text="@string/clear"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/stop"
-        android:layout_toEndOf="@+id/stop" />
+        android:layout_alignParentEnd="true"
+        tools:ignore="RelativeOverlap" />
+
+    <Button
+        android:text="@string/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/stop"
+        android:layout_alignStart="@+id/start" />
+
+    <Button
+        android:text="@string/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stop"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/send" />
+
+    <Button
+        android:text="@string/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/clear" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/user"
+        android:hint="@string/user_e_mail"
+        android:text="@string/j_doe_gmail_com" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/start"
+        android:layout_alignParentStart="true"
+        android:id="@+id/service"
+        android:hint="@string/positioning_service"
+        android:text="@string/http_10_0_3_99_8081" />
+
+    <TextView
+        android:text="@string/signal_strength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vss"
+        android:layout_above="@+id/clear"
+        android:layout_toStartOf="@+id/send" />
+
+    <TextView
+        android:text="@string/mnc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vmnc"
+        android:layout_below="@+id/stop"
+        android:layout_alignStart="@+id/vss" />
+
+    <TextView
+        android:text="@string/cid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vcid"
+        android:layout_alignBaseline="@+id/vmnc"
+        android:layout_alignBottom="@+id/vmnc"
+        android:layout_alignStart="@+id/vmcc" />
+
+    <TextView
+        android:text="@string/mcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vmcc"
+        android:layout_marginStart="62dp"
+        android:layout_alignBaseline="@+id/clear"
+        android:layout_alignBottom="@+id/clear"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/lac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vlac"
+        android:layout_alignBaseline="@+id/vss"
+        android:layout_alignBottom="@+id/vss"
+        android:layout_alignStart="@+id/vcid" />
+
+    <TextView
+        android:text="@string/qcid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qcid"
+        android:layout_alignBaseline="@+id/vcid"
+        android:layout_alignBottom="@+id/vcid"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/qlac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qlac"
+        android:layout_alignBaseline="@+id/vlac"
+        android:layout_alignBottom="@+id/vlac"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/qmcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/vmcc"
+        android:layout_alignParentStart="true"
+        android:id="@+id/qmcc" />
+
+    <TextView
+        android:text="@string/qmnc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qmnc"
+        android:layout_alignBaseline="@+id/vmnc"
+        android:layout_alignBottom="@+id/vmnc"
+        android:layout_toStartOf="@+id/vmnc"
+        android:layout_marginEnd="12dp" />
+
+    <TextView
+        android:text="@string/qss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/vss"
+        android:layout_alignStart="@+id/qmnc"
+        android:id="@+id/qss" />
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_height="250dp">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/CallStateTextView"
@@ -70,104 +172,11 @@
 
     </ScrollView>
 
-    <TextView
-        android:text="@string/mnc"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cid"
-        android:layout_alignLeft="@+id/start"
-        android:layout_alignStart="@+id/start"
-        android:layout_marginTop="21dp"
-        android:id="@+id/mnc" />
+        android:layout_below="@+id/clear"
+        android:layout_alignParentStart="true"
+        android:id="@+id/spinner" />
 
-    <TextView
-        android:text="@string/cid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:id="@+id/cid"
-        android:layout_below="@+id/send"
-        android:layout_alignLeft="@+id/mnc"
-        android:layout_alignStart="@+id/mnc" />
-
-    <TextView
-        android:text="@string/mcc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mcc"
-        android:layout_alignBaseline="@+id/lac"
-        android:layout_alignBottom="@+id/lac"
-        android:layout_alignLeft="@+id/clear"
-        android:layout_alignStart="@+id/clear"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
-
-    <TextView
-        android:text="@string/lac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lac"
-        android:layout_alignBaseline="@+id/vcid"
-        android:layout_alignBottom="@+id/vcid"
-        android:layout_alignLeft="@+id/ss"
-        android:layout_alignStart="@+id/ss" />
-
-    <TextView
-        android:text="@string/vmcc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mcc"
-        android:layout_toRightOf="@+id/mcc"
-        android:layout_toEndOf="@+id/mcc"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:id="@+id/vmcc" />
-
-    <TextView
-        android:text="@string/vcid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vcid"
-        android:layout_above="@+id/mnc"
-        android:layout_toRightOf="@+id/mnc"
-        android:layout_toEndOf="@+id/mnc" />
-
-    <TextView
-        android:text="@string/vlac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vlac"
-        android:layout_alignBaseline="@+id/lac"
-        android:layout_alignBottom="@+id/lac"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/signalstrength"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ss"
-        android:layout_alignBaseline="@+id/vmnc"
-        android:layout_alignBottom="@+id/vmnc"
-        android:layout_alignLeft="@+id/send"
-        android:layout_alignStart="@+id/send" />
-
-    <TextView
-        android:text="@string/vss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vss"
-        android:layout_alignBaseline="@+id/ss"
-        android:layout_alignBottom="@+id/ss"
-        android:layout_alignLeft="@+id/clear"
-        android:layout_alignStart="@+id/clear" />
-
-    <TextView
-        android:text="@string/vmnc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vmnc"
-        android:layout_alignBaseline="@+id/mnc"
-        android:layout_alignBottom="@+id/mnc"
-        android:layout_toLeftOf="@+id/stop"
-        android:layout_toStartOf="@+id/stop" />
 </RelativeLayout>

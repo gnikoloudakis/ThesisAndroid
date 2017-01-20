@@ -1,6 +1,10 @@
 package com.yannis.mycellid;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.CellInfo;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
@@ -11,21 +15,25 @@ import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.widget.TextView;
+
+
 import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.jar.Manifest;
 
 /**
  * Created by yannis on 9/28/2016.
  */
 
-public class CustomPhoneStateListener extends PhoneStateListener {
+public class CustomPhoneStateListener extends PhoneStateListener{
 
     MainActivity mActivity;
     private static String TAG = "TelephonyApp";
     private int vcid, vlac, vmcc, vmnc, vss;
+
 
     CustomPhoneStateListener(MainActivity activity) {
         mActivity = activity;
@@ -248,6 +256,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     + signalStrength.getCdmaEcio());
             mActivity.log(mActivity.getLogText() + "onSignalStrengthsChanged: getCdmaEcio "
                     + signalStrength.getCdmaEcio() + "\n");
+            mActivity.setSS(signalStrength.getGsmSignalStrength());
         } else {
             Log.i(TAG, "onSignalStrengthsChanged: getEvdoDbm "
                     + signalStrength.getEvdoDbm());
@@ -261,6 +270,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     + signalStrength.getEvdoSnr());
             mActivity.log(mActivity.getLogText() + "onSignalStrengthsChanged: getEvdoSnr "
                     + signalStrength.getEvdoSnr() + "\n");
+            mActivity.setSS(signalStrength.getGsmSignalStrength());
         }
 
         try {
@@ -341,4 +351,6 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     + cdmaLoc.getSystemId() + "\n");
         }
     }
+
+
 }

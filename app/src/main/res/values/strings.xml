@@ -1,24 +1,23 @@
 <resources>
     <string name="app_name">MyCellID</string>
-
     <string name="start">Start</string>
     <string name="stop">Stop</string>
-    <string name="clear">Clear</string>
     <string name="send">Send</string>
-
-    <string name="cid">CID:</string>
-    <string name="mcc">MCC:</string>
-    <string name="mnc">MNC:</string>
-    <string name="lac">LAC:</string>
-    <string name="signalstrength">SignalStrength:</string>
-
-    <string name="vcid">vcid</string>
-    <string name="vmcc">vmcc</string>
-    <string name="vmnc">vmnc</string>
-    <string name="vlac">vlac</string>
-    <string name="vss">vss</string>
-
-
+    <string name="clear">Clear</string>
+    <string name="user_e_mail">User E-Mail</string>
+    <string name="j_doe_gmail_com">j.doe@gmail.com</string>
+    <string name="positioning_service">positioning service</string>
+    <string name="http_10_0_3_99_8081">http://10.0.3.99:8081</string>
+    <string name="cid">CID</string>
+    <string name="lac">LAC</string>
+    <string name="mcc">MCC</string>
+    <string name="mnc">MNC</string>
+    <string name="signal_strength">Signal Strength</string>
+    <string name="qcid">CID</string>
+    <string name="qlac">LAC</string>
+    <string name="qmnc">MNC</string>
+    <string name="qss">SS</string>
+    <string name="qmcc">MCC</string>
 
 
 </resources>
