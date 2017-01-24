@@ -7,7 +7,7 @@
     <string name="user_e_mail">User E-Mail</string>
     <string name="j_doe_gmail_com">j.doe@gmail.com</string>
     <string name="positioning_service">positioning service</string>
-    <string name="http_10_0_3_99_8081">http://10.0.3.99:8081</string>
+    <string name="http_10_0_3_99_8081">http://83.212.99.200/positioning/service/positioning_app</string>
     <string name="cid">CID</string>
     <string name="lac">LAC</string>
     <string name="mcc">MCC</string>

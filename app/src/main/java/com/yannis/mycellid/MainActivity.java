@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    final String url = service.getText() + "/service/positioning";
+                    final String url = String.valueOf(service.getText());
                     UserData = createJsonData(Integer.parseInt((String) cid.getText()),
                             Integer.parseInt((String) lac.getText()),
                             Integer.parseInt((String) mcc.getText()),
@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             userJsonData.put("time_stamp", ts);
             userJsonData.put("user", user);
             userJsonData.put("RSSI", rssi);
+            userJsonData.put("considerIp", "false");
             userJsonData.put("cellular", cellTowers);
 
             allJsonData = userJsonData;
