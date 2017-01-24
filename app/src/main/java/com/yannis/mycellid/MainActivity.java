@@ -28,8 +28,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -164,27 +166,37 @@ public class MainActivity extends AppCompatActivity {
             JSONObject cellular = new JSONObject();
             JSONObject cellTowers = new JSONObject();
             JSONObject cellinfo = new JSONObject();
+            JSONObject considerIp = new JSONObject();
+            JSONArray acellular = new JSONArray();
 
             cellinfo.put("cellId", cid);
             cellinfo.put("locationAreaCode", lac);
             cellinfo.put("mobileCountryCode", mcc);
             cellinfo.put("mobileNetworkCode", mnc);
             cellinfo.put("signalStrength", ss);
+            considerIp.put("considerIp", "false");
 
-            cellTowers.put("cellTowers", cellinfo);
+//            cellTowers.put("cellTowers", cellinfo);
+            acellular.put(cellinfo);
+//            acellular.put(considerIp);
+//            cellTowers.put("cellTowers", acellular);
+
+            cellular.put("considerIp", "false");
+            cellular.put("cellTowers", acellular);
 
             userJsonData.put("time_stamp", ts);
             userJsonData.put("user", user);
             userJsonData.put("RSSI", rssi);
-            userJsonData.put("considerIp", "false");
-            userJsonData.put("cellular", cellTowers);
+            userJsonData.put("cellular", cellular);
 
             allJsonData = userJsonData;
+            System.out.println(allJsonData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return allJsonData;
     }
+
 
     public static String makeRequest(String url, String data) {
         String answer = "";
@@ -203,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
             Response response = client.newCall(request).execute();
             answer = response.body().toString();
+            response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -371,12 +384,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
-        if (requestCode == LOCATION_PERMISSIONS_REQUEST){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_PERMISSIONS_REQUEST) {
             if (grantResults.length == 1 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Location Permissin Granted", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
 //                boolean showRationale = shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
 
 //                if (showRationale){
@@ -386,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast.makeText(this, "Location Permission Dennied", Toast.LENGTH_SHORT).show();
 //                }
             }
-        }else {
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
